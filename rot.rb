@@ -13,7 +13,7 @@ parser = OptionParser.new do |opts|
         options[:prefix] = prefix
     end
 
-    opts.on('-o', '--out out', 'Output file') do |prefix|
+    opts.on('-o', '--out out', 'Output file') do |out|
         options[:out] = out
     end
 end
@@ -42,9 +42,7 @@ def encode_line(line)
     end
 end
 
-Dir.chdir File.dirname(ARGV[0])
-files =  Dir.glob File.basename(ARGV[0])
-files.each do |file|
+ARGV.each do |file|
     unless options[:out].nil?
         out = File.open options[:out], 'a'
     else
