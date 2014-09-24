@@ -41,7 +41,7 @@ def encode(chr)
 end
 
 def encode_line(line)
-    return line.split().map {|chr| encode(chr)}.join()
+    return line.split('').map {|chr| encode(chr)}.join()
 end
 
 ARGV.each do |file|
