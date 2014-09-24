@@ -27,19 +27,21 @@ end
 def encode(chr)
     downs = 'abcdefghijklmnopqrstuvwxyz'
     ups = downs.upcase
-    index = downs.index chr.downcase
-    new_index = (index + 14)%downs.size
-    if downs.include? chr
-        return downs[new_index]
-    else 
-        return ups[new_index]
+    if downs.include? chr.downcase
+        index = downs.index chr.downcase
+        new_index = (index + 14)%downs.size
+        if downs.include? chr
+            return downs[new_index]
+        else 
+            return ups[new_index]
+        end
+    else
+        return chr
     end
 end
 
 def encode_line(line)
-    return line.each_char do |chr|
-        is_letter?(chr) ? encode(chr) : chr
-    end
+    return line.split().map {|chr| encode(chr)}.join()
 end
 
 ARGV.each do |file|
