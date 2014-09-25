@@ -7,9 +7,9 @@ class Email
     def initialize(raw)
         lines = raw.split("\n")
         @subject = /Subject:\s?((Re:|Fwd:)\s?)*/.match(lines[0]).post_match
-        @from = /From:\s?(.*?)\s?<.*>/.match(lines[1]).captures[0]
+        @from = lines[1][6...-1]
         @date = DateTime.parse(/Date:\s?/.match(lines[2]).post_match)
-        @to = /To:\s?(.*?)\s?<.*>/.match(lines[3]).captures[0]
+        @to = lines[3][4...-1]
         line1 = 3
         line1 += 1 while not line[line1] =~ /\s/
         x, @message = line1+1, []
