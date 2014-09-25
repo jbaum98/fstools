@@ -24,7 +24,7 @@ def is_letter?(chr)
     return (chr =~ /[A-Za-z]/) != nil
 end
 
-def encode(chr)
+def decode(chr)
     downs = 'abcdefghijklmnopqrstuvwxyz'
     ups = downs.upcase
     if downs.include? chr.downcase
@@ -40,8 +40,14 @@ def encode(chr)
     end
 end
 
-def encode_line(line)
-    return line.split('').map {|chr| encode(chr)}.join()
+def decode_line(line)
+    return line.split('').map {|chr| decode(chr)}.join()
+end
+
+def decode_file(file, out)
+    f.each_line do |line|
+        out.write(decode_line(line))
+    end
 end
 
 ARGV.each do |file|
@@ -50,10 +56,6 @@ ARGV.each do |file|
     else
         out = File.open(options[:prefix] + file, 'w')
     end
-    File.open(file, 'r') do |f|
-        f.each_line do |line|
-            out.write(encode_line(line))
-        end
-    end
+    File.open(file, 'r') { |f| decode_file(f, out) }
     out.close()
 end
