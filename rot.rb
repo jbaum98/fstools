@@ -44,10 +44,14 @@ def decode_line(line)
     return line.split('').map {|chr| decode(chr)}.join()
 end
 
-def decode_file(file, out)
-    f.each_line do |line|
-        out.write(decode_line(line))
+def decode_file(file, out='')
+    if file.is_a? String
+        out << decode_line(file)
+    elsif file.is_a? File
+       file.each_line { |line| out << decode_line(line) } 
+
     end
+    return out if out.is_a? String
 end
 
 ARGV.each do |file|
