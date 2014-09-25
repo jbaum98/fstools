@@ -11,7 +11,7 @@ class Email
         @date = DateTime.parse(/Date:\s?/.match(lines[2]).post_match)
         @to = /To:\s?(.*?)\s?<.*>/.match(lines[3]).captures[0]
         x, @message = 5, []
-        while lines[x][0] != '>' and x < lines.size do 
+        while x < lines.size and lines[x][0] != '>' do 
             @message.push lines[x]
             x+=1
         end
