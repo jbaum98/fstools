@@ -1,6 +1,7 @@
 require 'date'
 
 class Email
+    include Comparable
     attr_accessor :subject, :from, :date, :message, :to
     @@emails = []
 
@@ -23,5 +24,9 @@ class Email
 
     def self.emails
         return @@emails
+    end
+
+    def <=>(other)
+        date <=> other.date
     end
 end
